@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <h1>Result</h1>
+    </div>
+
+    <div class="row">
+        {% if info == 'dog' %}
+            You uploaded a dog image. Most likely breed are: 
+        {% elif info == 'human_face' %}
+            You uploaded a human face image. Most resembling dog breeds are: 
+        {% elif info == 'neither' %}
+            Sorry! The uploaded image can't be processed.</br>
+            The image is not of a dog nor of a human face.</br>
+            Try again with a different and/or modified image.</br>
+        {% endif %}
+    </div>
+    
+    <div class="row mt-3">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Breed</th>
+                    <th scope="col">Probability</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(5) %}
+                    <tr>
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>{{ predictions['breeds'][i] }}</td>
+                        <td>{{ "{:.2f}".format(predictions['prob'][i]) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="row">
+   
+            <img height="300px" width="300px" src="{{ url_for('static', filename=img_file) }}" class="rounded mx-auto d-block">
+  
+     
+            <img  src="{{ url_for('static', filename=img_ref_file) }}" class="rounded  mx-auto d-block">
+    
+    </div>
+    
+
+    <div class="mt-5 d-flex justify-content-center">
+        <a class="btn btn-primary" href="{{ url_for('index') }}">Reset</a>
+    </div>
+    
+{% endblock %}
