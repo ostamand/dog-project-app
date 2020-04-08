@@ -33,7 +33,7 @@ source venv/bin/activate
 
 3. Download the dependencies using pip.
 ```
-pip install -r Requirements.txt
+pip install -r requirements.txt
 ```
 
 4. Start the app locally 
